@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getTraceability } from "../api/api";
-import { Container, Typography, TextField, Button, Paper, List, ListItem, ListItemText, Divider, Card, CardContent, Grid, Stack, Box } from "@mui/material";
+import { Container, Typography, TextField, Button, Paper, List, ListItem, ListItemText, Divider, Card, CardContent, Grid, Stack, Box, Alert } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import InfoIcon from '@mui/icons-material/Info';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
@@ -61,6 +61,12 @@ function TraceabilityDashboard() {
           <Grid item xs={12}>
             <Card elevation={8} sx={{ transition: 'transform 0.25s, box-shadow 0.25s', borderRadius: 4, background: 'rgba(255,255,255,0.90)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.14)', backdropFilter: 'blur(8px)', mb: 3, '&:hover': { transform: 'scale(1.02) translateY(-2px)', boxShadow: '0 12px 36px 0 #1976d244' } }}>
               <CardContent>
+                {/* Show product quality status */}
+                {result.product.quality_status && (
+                  <Alert severity={result.product.is_good ? "success" : "error"} sx={{ mb: 2 }}>
+                    {result.product.quality_status}
+                  </Alert>
+                )}
                 <Stack direction="row" alignItems="center" spacing={1} mb={2}>
                   <InfoIcon sx={{ color: '#1976d2', fontSize: 28, filter: 'drop-shadow(0 2px 8px #1976d244)' }} />
                   <Typography variant="h6" sx={{ fontWeight: 700 }}>Product Info</Typography>

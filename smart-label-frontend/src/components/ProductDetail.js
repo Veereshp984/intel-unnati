@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProduct, updateProduct, deleteProduct, runProductWorkflow, clearAutoQualityChecks, clearAutoLabels } from "../api/api";
-import { Container, Typography, CircularProgress, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText, Box } from "@mui/material";
+import { Container, Typography, CircularProgress, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText, Box, Alert } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -73,6 +73,12 @@ function ProductDetail() {
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
       <Typography variant="h4" gutterBottom sx={{ fontWeight: 800, fontFamily: 'Inter, Roboto, Arial, sans-serif', letterSpacing: 1, mb: 3, animation: 'fadeInDown 0.8s' }}>{product.name}</Typography>
+      {/* Show product quality status */}
+      {product.quality_status && (
+        <Alert severity={product.is_good ? "success" : "error"} sx={{ mb: 2 }}>
+          {product.quality_status}
+        </Alert>
+      )}
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
           <Card elevation={8} sx={{ mb: 2, borderRadius: 4, background: 'rgba(255,255,255,0.85)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.12)', backdropFilter: 'blur(8px)', animation: 'fadeInUp 1s' }}>

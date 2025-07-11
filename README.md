@@ -99,16 +99,27 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 ## Author
 
-Team : AI Tech
-Team members :-
- prabhudev
- Gmail: mathpati8055@gmail.com
- prajwal
- Gmail : prajwalpankaj123@gmail.com
- surag
- Gmail : surudev29@gmail.com
- Veeresh 
- Gmail : pasareveeresh0908@gmail.com
- zaffar
- Gmail : mohammedZaffar072@gmail.com
+
+
+Team Name: AI Tech
+
+# Team Members
+
+1. Prabhudev
+   Email: [mathpati8055@gmail.com](mailto:mathpati8055@gmail.com)
+
+2. Prajwal
+   Email: [prajwalpankaj123@gmail.com](mailto:prajwalpankaj123@gmail.com)
+
+3. Surag
+   Email: [surudev29@gmail.com](mailto:surudev29@gmail.com)
+
+4. Veeresh
+   Email: [pasareveeresh0908@gmail.com](mailto:pasareveeresh0908@gmail.com)
+
+5. Zaffar
+   Email: [mohammedZaffar072@gmail.com](mailto:mohammedZaffar072@gmail.com)
+
+
+
 

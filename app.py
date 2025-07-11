@@ -20,7 +20,7 @@ import qrcode
 from PIL import Image, ImageDraw, ImageFont
 import barcode
 from barcode.writer import ImageWriter
-from database import get_product_by_key
+from database import get_product_by_key, is_product_good, is_product_good_from_obj
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -617,9 +617,19 @@ def create_product():
 def get_product(product_id):
     product = Product.query.get_or_404(product_id)
     db.session.refresh(product)
+    is_good, status_msg = is_product_good_from_obj(product)
+    product_dict = product.to_dict()
+    product_dict['quality_status'] = status_msg
+    product_dict['is_good'] = is_good
+    # Use actual quality checks if present, else fallback
+    quality_checks = [check.to_dict() for check in product.quality_checks] if product.quality_checks else []
+    if not quality_checks:
+        # fallback to static or category defaults
+        from database import get_product_quality_parameters
+        quality_checks = get_product_quality_parameters(product.name)
     return jsonify({
-        'product': product.to_dict(),
-        'quality_checks': [check.to_dict() for check in product.quality_checks],
+        'product': product_dict,
+        'quality_checks': quality_checks,
         'labels': [label.to_dict() for label in product.labels],
         'workflow_logs': [log.to_dict() for log in product.workflow_logs],
         'success': True
@@ -1001,10 +1011,19 @@ def trace_product(identifier):
     if not product:
         return jsonify({'error': 'Product not found', 'success': False}), 404
     
-    # Get full traceability information
+    # Use the actual product record for date checks
+    is_good, status_msg = is_product_good_from_obj(product)
+    product_dict = product.to_dict()
+    product_dict['quality_status'] = status_msg
+    product_dict['is_good'] = is_good
+    # Use actual quality checks if present, else fallback
+    quality_checks = [check.to_dict() for check in product.quality_checks] if product.quality_checks else []
+    if not quality_checks:
+        from database import get_product_quality_parameters
+        quality_checks = get_product_quality_parameters(product.name)
     traceability_data = {
-        'product': product.to_dict(),
-        'quality_checks': [check.to_dict() for check in product.quality_checks],
+        'product': product_dict,
+        'quality_checks': quality_checks,
         'labels': [label.to_dict() for label in product.labels],
         'workflow_logs': [log.to_dict() for log in product.workflow_logs],
         'traceability_score': calculate_traceability_score(product),
