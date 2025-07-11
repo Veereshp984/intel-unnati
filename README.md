@@ -99,6 +99,16 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 ## Author
 
-Veeresh Pasare
-Email: [pasareveeresh0908@gmail.com]
+Team : AI Tech
+Team members :-
+ prabhudev
+ Gmail: mathpati8055@gmail.com
+ prajwal
+ Gmail : prajwalpankaj123@gmail.com
+ surag
+ Gmail : surudev29@gmail.com
+ Veeresh 
+ Gmail : pasareveeresh0908@gmail.com
+ zaffar
+ Gmail : mohammedZaffar072@gmail.com
 
