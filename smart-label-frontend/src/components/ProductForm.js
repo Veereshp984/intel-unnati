@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProduct, getIndianProductQualityParameters } from "../api/api";
-import { Container, TextField, Button, Typography, Paper, CircularProgress } from "@mui/material";
+import { Container, TextField, Button, Typography, Paper, CircularProgress, Box } from "@mui/material";
 import { useSnackbar } from "./SnackbarProvider";
 
 function ProductForm() {
@@ -71,39 +71,46 @@ function ProductForm() {
   };
 
   return (
-    <Container maxWidth="sm" style={{ marginTop: 32 }}>
-      <Paper style={{ padding: 24 }}>
-        <Typography variant="h5" gutterBottom>Add New Product</Typography>
+    <Container maxWidth="sm" sx={{ mt: 6, mb: 6 }}>
+      <Paper sx={{
+        p: 4,
+        borderRadius: 5,
+        background: 'rgba(255,255,255,0.85)',
+        boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.14)',
+        backdropFilter: 'blur(10px)',
+        animation: 'fadeInDown 1s',
+      }}>
+        <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, fontFamily: 'Inter, Roboto, Arial, sans-serif', letterSpacing: 1, mb: 2 }}>Add New Product</Typography>
         <form onSubmit={handleSubmit}>
-          <TextField label="Name" name="name" value={form.name} onChange={handleChange} fullWidth margin="normal" required />
-          <TextField label="Description" name="description" value={form.description} onChange={handleChange} fullWidth margin="normal" />
-          <TextField label="Category" name="category" value={form.category} onChange={handleChange} fullWidth margin="normal" />
-          <TextField label="Manufacturer" name="manufacturer" value={form.manufacturer} onChange={handleChange} fullWidth margin="normal" />
-          <TextField label="Batch Number" name="batch_number" value={form.batch_number} onChange={handleChange} fullWidth margin="normal" />
-          <TextField label="Manufacturing Date" name="manufacturing_date" type="date" value={form.manufacturing_date} onChange={handleChange} fullWidth margin="normal" InputLabelProps={{ shrink: true }} />
-          <TextField label="Expiry Date" name="expiry_date" type="date" value={form.expiry_date} onChange={handleChange} fullWidth margin="normal" InputLabelProps={{ shrink: true }} />
-          {error && <Typography color="error" style={{ marginTop: 8 }}>{error}</Typography>}
-          <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: 16 }} disabled={loading}>
+          <TextField label="Name" name="name" value={form.name} onChange={handleChange} fullWidth margin="normal" required sx={{ fontWeight: 600 }} />
+          <TextField label="Description" name="description" value={form.description} onChange={handleChange} fullWidth margin="normal" sx={{ fontWeight: 600 }} />
+          <TextField label="Category" name="category" value={form.category} onChange={handleChange} fullWidth margin="normal" sx={{ fontWeight: 600 }} />
+          <TextField label="Manufacturer" name="manufacturer" value={form.manufacturer} onChange={handleChange} fullWidth margin="normal" sx={{ fontWeight: 600 }} />
+          <TextField label="Batch Number" name="batch_number" value={form.batch_number} onChange={handleChange} fullWidth margin="normal" sx={{ fontWeight: 600 }} />
+          <TextField label="Manufacturing Date" name="manufacturing_date" type="date" value={form.manufacturing_date} onChange={handleChange} fullWidth margin="normal" InputLabelProps={{ shrink: true }} sx={{ fontWeight: 600 }} />
+          <TextField label="Expiry Date" name="expiry_date" type="date" value={form.expiry_date} onChange={handleChange} fullWidth margin="normal" InputLabelProps={{ shrink: true }} sx={{ fontWeight: 600 }} />
+          {error && <Typography color="error" sx={{ mt: 1, fontWeight: 600, animation: 'fadeIn 0.7s' }}>{error}</Typography>}
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 3, fontWeight: 700, borderRadius: 2, boxShadow: '0 4px 16px 0 #1976d244', transition: 'all 0.2s', '&:hover': { background: 'linear-gradient(90deg, #1976d2 0%, #21a1ff 100%)', transform: 'translateY(-2px) scale(1.04)', boxShadow: '0 8px 32px 0 #1976d244' } }} disabled={loading}>
             {loading ? <CircularProgress size={24} color="inherit" /> : "Create Product"}
           </Button>
         </form>
         {/* Show Indian product quality parameters if found */}
-        <div style={{ marginTop: 24 }}>
-          {paramsLoading && <CircularProgress size={20} style={{ marginRight: 8 }} />}
+        <Box sx={{ mt: 4 }}>
+          {paramsLoading && <CircularProgress size={20} sx={{ mr: 1 }} />}
           {qualityParams.length > 0 && (
             <>
-              <Typography variant="subtitle1" style={{ marginTop: 16 }}>Indian Product Quality Parameters:</Typography>
+              <Typography variant="subtitle1" sx={{ mt: 2, fontWeight: 700, fontFamily: 'Inter, Roboto, Arial, sans-serif', animation: 'fadeInUp 0.8s' }}>Indian Product Quality Parameters:</Typography>
               <ul style={{ marginTop: 8 }}>
                 {qualityParams.map((param, idx) => (
-                  <li key={idx}>
-                    <b>{param.parameter}</b>: Expected {param.expected} {param.unit} (Tolerance: ±{param.tolerance}{param.unit})
+                  <li key={idx} style={{ fontWeight: 600, animation: `fadeIn 0.7s ${0.1 * idx}s` }}>
+                    <b>{param.parameter}</b>: Expected {param.expected} {param.unit} (Tolerance:  b1{param.tolerance}{param.unit})
                   </li>
                 ))}
               </ul>
             </>
           )}
-          {paramsMsg && <Typography color="textSecondary" style={{ marginTop: 8 }}>{paramsMsg}</Typography>}
-        </div>
+          {paramsMsg && <Typography color="textSecondary" sx={{ mt: 2, fontWeight: 500, animation: 'fadeIn 0.7s' }}>{paramsMsg}</Typography>}
+        </Box>
       </Paper>
     </Container>
   );

@@ -16,17 +16,59 @@ import { SnackbarProvider } from "./components/SnackbarProvider";
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#1976d2', // blue
     },
     secondary: {
-      main: '#ff9800',
+      main: '#7c3aed', // purple
+    },
+    accent: {
+      main: '#21a1ff', // light blue
     },
     background: {
-      default: '#f4f6f8',
+      default: '#f3f4fd', // light blue-purple
     },
   },
   typography: {
-    fontFamily: 'Roboto, Arial, sans-serif',
+    fontFamily: 'Inter, Roboto, Arial, sans-serif',
+    fontWeightBold: 700,
+  },
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          background: 'rgba(255,255,255,0.7)',
+          backdropFilter: 'blur(12px)',
+          boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
+          borderBottom: '1px solid #ede9fe',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+          fontWeight: 600,
+          transition: 'all 0.2s',
+          boxShadow: '0 2px 8px 0 rgba(25, 118, 210, 0.08)',
+          '&:hover': {
+            background: 'linear-gradient(90deg, #1976d2 0%, #7c3aed 100%)',
+            color: '#fff',
+            boxShadow: '0 4px 16px 0 rgba(124, 58, 237, 0.16)',
+          },
+        },
+      },
+    },
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          background: 'rgba(255,255,255,0.85)',
+          borderRadius: '24px',
+          boxShadow: '0 8px 32px 0 rgba(124, 58, 237, 0.10)',
+          padding: '32px 24px',
+          marginTop: '32px',
+        },
+      },
+    },
   },
 });
 
@@ -41,11 +83,11 @@ const navLinks = [
 function NavBar() {
   const location = useLocation();
   return (
-    <AppBar position="static" color="primary" sx={{ mb: 3 }}>
+    <AppBar position="static" color="primary" sx={{ mb: 3, borderRadius: 3, mt: 2, mx: 'auto', maxWidth: 1200 }}>
       <Toolbar>
         <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-          <img src="/logo192.png" alt="Logo" style={{ height: 40, marginRight: 16 }} />
-          <Typography variant="h6" color="inherit" sx={{ fontWeight: 700, letterSpacing: 1, mr: 4 }}>
+          <img src="/logo192.png" alt="Logo" style={{ height: 40, marginRight: 16, borderRadius: 8, boxShadow: '0 2px 8px rgba(25,118,210,0.10)' }} />
+          <Typography variant="h5" color="primary" sx={{ fontWeight: 700, fontFamily: 'Inter, Roboto, Arial, sans-serif', letterSpacing: 1, mr: 4, textShadow: '0 2px 8px rgba(25,118,210,0.10)' }}>
             Smart Product Labeling
           </Typography>
           {navLinks.map(link => (
@@ -53,7 +95,7 @@ function NavBar() {
               key={link.to}
               component={Link}
               to={link.to}
-              color={location.pathname === link.to ? "secondary" : "inherit"}
+              color={location.pathname === link.to ? "secondary" : "primary"}
               variant={location.pathname === link.to ? "contained" : "text"}
               sx={{ mr: 2 }}
             >

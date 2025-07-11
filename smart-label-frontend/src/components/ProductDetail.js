@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getProduct, updateProduct, deleteProduct, runProductWorkflow, clearAutoQualityChecks, clearAutoLabels } from "../api/api";
-import { Container, Typography, CircularProgress, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText } from "@mui/material";
+import { Container, Typography, CircularProgress, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, List, ListItem, ListItemText, Box } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -72,12 +72,12 @@ function ProductDetail() {
 
   return (
     <Container maxWidth="md" sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>{product.name}</Typography>
+      <Typography variant="h4" gutterBottom sx={{ fontWeight: 800, fontFamily: 'Inter, Roboto, Arial, sans-serif', letterSpacing: 1, mb: 3, animation: 'fadeInDown 0.8s' }}>{product.name}</Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <Card elevation={2} sx={{ mb: 2 }}>
+          <Card elevation={8} sx={{ mb: 2, borderRadius: 4, background: 'rgba(255,255,255,0.85)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.12)', backdropFilter: 'blur(8px)', animation: 'fadeInUp 1s' }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>Product Information</Typography>
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, fontFamily: 'Inter, Roboto, Arial, sans-serif' }}>Product Information</Typography>
               <Divider sx={{ mb: 2 }} />
               <Typography><b>Category:</b> {product.category}</Typography>
               <Typography><b>Description:</b> {product.description}</Typography>
@@ -88,9 +88,9 @@ function ProductDetail() {
               <Typography><b>Status:</b> {product.workflow_status}</Typography>
             </CardContent>
           </Card>
-          <Card elevation={2} sx={{ mb: 2, p: 2 }}>
+          <Card elevation={8} sx={{ mb: 2, borderRadius: 4, background: 'rgba(255,255,255,0.85)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.12)', backdropFilter: 'blur(8px)', p: 2, animation: 'fadeInUp 1.1s' }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>Actions</Typography>
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, fontFamily: 'Inter, Roboto, Arial, sans-serif' }}>Actions</Typography>
               <Divider sx={{ mb: 2 }} />
               <Grid container spacing={1}>
                 <Grid item xs={12} sm={6}>
@@ -98,7 +98,7 @@ function ProductDetail() {
                     variant="outlined"
                     color="warning"
                     fullWidth
-                    sx={{ mb: 1 }}
+                    sx={{ mb: 1, fontWeight: 700, borderRadius: 2, borderWidth: 2, borderColor: 'warning.main', transition: 'all 0.2s', '&:hover': { background: 'linear-gradient(90deg, #ff9800 0%, #ff80ab 100%)', color: '#fff', borderColor: 'warning.main', boxShadow: '0 8px 32px 0 #ff980044' } }}
                     onClick={() => {
                       if (window.confirm("Are you sure you want to clear all auto-generated quality checks?")) {
                         clearAutoQualityChecks(product.id).then(() => getProduct(id).then(res => setProduct(res.data.product)));
@@ -113,7 +113,7 @@ function ProductDetail() {
                     variant="outlined"
                     color="warning"
                     fullWidth
-                    sx={{ mb: 1 }}
+                    sx={{ mb: 1, fontWeight: 700, borderRadius: 2, borderWidth: 2, borderColor: 'warning.main', transition: 'all 0.2s', '&:hover': { background: 'linear-gradient(90deg, #ff9800 0%, #ff80ab 100%)', color: '#fff', borderColor: 'warning.main', boxShadow: '0 8px 32px 0 #ff980044' } }}
                     onClick={() => {
                       if (window.confirm("Are you sure you want to clear all auto-generated labels?")) {
                         clearAutoLabels(product.id).then(() => getProduct(id).then(res => setProduct(res.data.product)));
@@ -124,12 +124,12 @@ function ProductDetail() {
                   </Button>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Button variant="contained" color="primary" fullWidth sx={{ mb: 1 }} onClick={() => setEditOpen(true)}>
+                  <Button variant="contained" color="primary" fullWidth sx={{ mb: 1, fontWeight: 700, borderRadius: 2, boxShadow: '0 4px 16px 0 #1976d244', transition: 'all 0.2s', '&:hover': { background: 'linear-gradient(90deg, #1976d2 0%, #21a1ff 100%)', transform: 'translateY(-2px) scale(1.04)', boxShadow: '0 8px 32px 0 #1976d244' } }} onClick={() => setEditOpen(true)}>
                     Edit
                   </Button>
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Button variant="contained" color="secondary" fullWidth sx={{ mb: 1 }} onClick={handleDelete}>
+                  <Button variant="contained" color="secondary" fullWidth sx={{ mb: 1, fontWeight: 700, borderRadius: 2, boxShadow: '0 4px 16px 0 #ff80ab44', transition: 'all 0.2s', '&:hover': { background: 'linear-gradient(90deg, #ff80ab 0%, #ff9800 100%)', transform: 'translateY(-2px) scale(1.04)', boxShadow: '0 8px 32px 0 #ff80ab44' } }} onClick={handleDelete}>
                     Delete
                   </Button>
                 </Grid>
@@ -138,23 +138,23 @@ function ProductDetail() {
                     variant="contained"
                     color="primary"
                     fullWidth
-                    sx={{ mb: 1 }}
+                    sx={{ mb: 1, fontWeight: 700, borderRadius: 2, boxShadow: '0 4px 16px 0 #1976d244', transition: 'all 0.2s', '&:hover': { background: 'linear-gradient(90deg, #1976d2 0%, #21a1ff 100%)', transform: 'translateY(-2px) scale(1.04)', boxShadow: '0 8px 32px 0 #1976d244' } }}
                     onClick={handleRunWorkflow}
                     disabled={workflowLoading}
                   >
                     Run Workflow Automation
                   </Button>
                   {workflowLoading && <CircularProgress size={24} sx={{ ml: 2, verticalAlign: "middle" }} />}
-                  {workflowMsg && <Typography color="secondary">{workflowMsg}</Typography>}
+                  {workflowMsg && <Typography color="secondary" sx={{ mt: 1, fontWeight: 600, animation: 'fadeIn 1s' }}>{workflowMsg}</Typography>}
                 </Grid>
               </Grid>
             </CardContent>
           </Card>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Card elevation={2} sx={{ mb: 2 }}>
+          <Card elevation={8} sx={{ mb: 2, borderRadius: 4, background: 'rgba(255,255,255,0.85)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.12)', backdropFilter: 'blur(8px)', animation: 'fadeInUp 1.2s' }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>Quality Checks</Typography>
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, fontFamily: 'Inter, Roboto, Arial, sans-serif' }}>Quality Checks</Typography>
               <Divider sx={{ mb: 2 }} />
               <QualityChecks
                 productId={product.id}
@@ -165,9 +165,9 @@ function ProductDetail() {
               />
             </CardContent>
           </Card>
-          <Card elevation={2} sx={{ mb: 2 }}>
+          <Card elevation={8} sx={{ mb: 2, borderRadius: 4, background: 'rgba(255,255,255,0.85)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.12)', backdropFilter: 'blur(8px)', animation: 'fadeInUp 1.3s' }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>Labels</Typography>
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, fontFamily: 'Inter, Roboto, Arial, sans-serif' }}>Labels</Typography>
               <Divider sx={{ mb: 2 }} />
               <Labels
                 productId={product.id}
@@ -181,15 +181,15 @@ function ProductDetail() {
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card elevation={2} sx={{ mb: 2 }}>
+          <Card elevation={8} sx={{ mb: 2, borderRadius: 4, background: 'rgba(255,255,255,0.85)', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.12)', backdropFilter: 'blur(8px)', animation: 'fadeInUp 1.4s' }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>Workflow Logs</Typography>
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, fontFamily: 'Inter, Roboto, Arial, sans-serif' }}>Workflow Logs</Typography>
               <Divider sx={{ mb: 2 }} />
               <List>
                 {(product.workflow_logs || []).map((log, idx) => (
-                  <ListItem key={idx} sx={{ borderBottom: '1px solid #eee' }}>
+                  <ListItem key={idx} sx={{ borderBottom: '1px solid #eee', animation: `fadeIn 0.7s ${0.1 * idx}s` }}>
                     <ListItemText
-                      primary={`${log.action} (${log.status})`}
+                      primary={<span style={{ fontWeight: 600 }}>{`${log.action} (${log.status})`}</span>}
                       secondary={log.details}
                     />
                   </ListItem>
@@ -205,7 +205,7 @@ function ProductDetail() {
       <Dialog open={editOpen} onClose={() => setEditOpen(false)}>
         <DialogTitle>Edit Product</DialogTitle>
         <form onSubmit={handleEditSubmit}>
-          <DialogContent>
+          <DialogContent sx={{ background: 'rgba(255,255,255,0.95)', borderRadius: 2, boxShadow: '0 4px 24px 0 #1976d244', animation: 'fadeInDown 0.7s' }}>
             <TextField label="Name" name="name" value={editForm.name || ""} onChange={handleEditChange} fullWidth required margin="normal" />
             <TextField label="Description" name="description" value={editForm.description || ""} onChange={handleEditChange} fullWidth margin="normal" />
             <TextField label="Category" name="category" value={editForm.category || ""} onChange={handleEditChange} fullWidth margin="normal" />
@@ -215,9 +215,9 @@ function ProductDetail() {
             <TextField label="Expiry Date" name="expiry_date" type="date" value={editForm.expiry_date ? editForm.expiry_date.substring(0,10) : ""} onChange={handleEditChange} fullWidth margin="normal" InputLabelProps={{ shrink: true }} />
             {error && <Typography color="error">{error}</Typography>}
           </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setEditOpen(false)}>Cancel</Button>
-            <Button type="submit" variant="contained" color="primary">Save</Button>
+          <DialogActions sx={{ background: 'rgba(255,255,255,0.95)', borderRadius: 2, boxShadow: '0 4px 24px 0 #1976d244' }}>
+            <Button onClick={() => setEditOpen(false)} sx={{ fontWeight: 600 }}>Cancel</Button>
+            <Button type="submit" variant="contained" color="primary" sx={{ fontWeight: 700, boxShadow: '0 2px 8px 0 #1976d244', '&:hover': { background: 'linear-gradient(90deg, #1976d2 0%, #21a1ff 100%)', color: '#fff' } }}>Save</Button>
           </DialogActions>
         </form>
       </Dialog>
