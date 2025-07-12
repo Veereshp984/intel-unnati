@@ -14,6 +14,66 @@ The Smart Label Product System is a web-based platform designed to enhance produ
 * Counterfeit Prevention: Instantly verify product authenticity by scanning QR codes.
 * User-Friendly Interface: Manage products, batches, and analytics through an intuitive web dashboard.
 
+# Quality Check System
+
+The platform includes a flexible quality evaluation system that supports both manual and automated parameter checks. This is essential for verifying product compliance with standards such as Moisture Content, Protein Content, Shelf Life, and more.
+
+# How Are Quality Parameters Evaluated?
+
+Each quality parameter is assessed by comparing its actual value to an expected value, along with a defined tolerance range. The system determines whether the parameter passes or fails accordingly.
+
+### 1. Automated Quality Checks (Simulated Mode)
+
+When the “Run Auto Quality Checks” button is used:
+
+* The backend simulates actual values close to the expected ones.
+* These values are marked as `Checked By: Auto-System`.
+* This is useful for demo, testing, or non-production environments where sensor or lab integration isn't available.
+
+ 2. Manual Entry
+
+Using the “Add Quality Check” feature:
+
+* Users can input actual measured values for each parameter.
+* The system checks these against the expected value and tolerance limits.
+* The result is labeled with the user’s name and pass/fail status is assigned.
+
+# 3. Backend Evaluation Logic
+
+For each quality parameter:
+
+* If a manual value is provided, it is used for evaluation.
+* If no manual value exists and auto-check is triggered, a simulated value is generated.
+* The system evaluates the difference between actual and expected values, and determines compliance based on the allowed tolerance.
+
+
+
+# Why This Matters
+
+In production systems, actual values are sourced from:
+
+* Laboratory results
+* IoT-based sensors
+* Manual entries by quality inspectors
+
+In prototypes or pilot demos, simulated values ensure that the entire quality check process can still be tested and demonstrated end-to-end.
+
+
+
+### Controlling Behavior
+
+| Mode                          | Description                                      | Triggered By                 |
+| ----------------------------- | ------------------------------------------------ | ---------------------------- |
+| Manual Quality Check          | Inspector enters actual value                    | User                         |
+| Auto-Generated (Simulated)    | Value is generated programmatically              | Backend (Auto-System)        |
+| IoT / Real Sensor Integration | Value is fetched from connected hardware/sensors | External API/device (Future) |
+
+
+To switch between modes:
+
+* Disable simulation by removing or commenting out the auto-check logic.
+* Integrate real sensors by connecting the backend to an IoT API or sensor input stream.
+
 ## Applications
 
 * Manufacturing and industrial supply chains

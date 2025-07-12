@@ -164,6 +164,7 @@ function ProductDetail() {
               <Divider sx={{ mb: 2 }} />
               <QualityChecks
                 productId={product.id}
+                productName={product.name}
                 qualityChecks={product.quality_checks || []}
                 refresh={() => {
                   getProduct(id).then(res => setProduct(res.data.product));
